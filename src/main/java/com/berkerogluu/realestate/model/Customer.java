@@ -26,7 +26,7 @@ public class Customer {
     @Column(name = "email", nullable = false, length = 255)
     private String email;
 
-    @Column(name = "address", nullable = false, length = 255)
+    @Column(name = "address", nullable = false, length = 500)
     private String address;
 
     // Customer can be a buyer, seller, landlord and tenant at the same time (design choice)
