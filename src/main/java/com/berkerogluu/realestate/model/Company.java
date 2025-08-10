@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "company")
+@Table(name = "company") // Used a singular table name because app will be managed by a single company
 public class Company {
 
     @Id
@@ -34,7 +34,7 @@ public class Company {
 
     // https://ttbs.gtb.gov.tr/Home/BelgeSorgula
     // https://ticaret.gov.tr/kurumsal-haberler/elektronik-ilan-dogrulama-sistemi-eids-yetki-dogrulama-uygulamasi-hayata-gecirildi
-    @Column(name = "trade_authorization_number", length = 255)
+    @Column(name = "trade_authorization_number", nullable = false, length = 255)
     private String tradeAuthorizationNumber;
 
     @Column(name = "created_at", nullable = false)
