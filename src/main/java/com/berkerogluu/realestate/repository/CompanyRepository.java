@@ -6,7 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public Interface CompanyRepository extends JpaRepository<Company, Long> {
 
+    // Find company by name
+    Optional<Company> findByCompanyName(String companyName);
 }
