@@ -12,6 +12,4 @@ import java.util.List;
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long> {
 
-    // Find properties of a customer by id
-    List<Property> findByCustomerId(Long customerId);
 }
