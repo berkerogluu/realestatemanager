@@ -26,7 +26,7 @@ public class PropertyService {
     }
 
     // Create a property
-    public Optional<Property> createProperty(Property property) {
+    public Property createProperty(Property property) {
         return propertyRepository.save(property);
     }
 }
