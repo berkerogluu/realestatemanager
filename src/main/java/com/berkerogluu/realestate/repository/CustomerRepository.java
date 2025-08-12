@@ -10,14 +10,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public Interface CustomerRepository extends JpaRepository <Customer, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    // Find customer by email
-    Optional<Customer> findCustomerById(String email);
+    // https://www.baeldung.com/spring-data-derived-queries
 
-    // Find customer by mobile phone
-    Optional<Customer> findCustomerByMobilePhone(String mobilePhone);
+    // Fİnd customer using email
+    Optional<Customer> findByEmail(String email);
 
-    // Find customer by home number
-    Optional<Customer> findCustomerByHomeNumber(String homeNumber);
+    // Find customer by mobile phone number
+    Optional<Customer> findByMobilePhone(String mobilePhone);
+
+    // Check if customer exist
+    boolean existsByEmail(String email);
 }

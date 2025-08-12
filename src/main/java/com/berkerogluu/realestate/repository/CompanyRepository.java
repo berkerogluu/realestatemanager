@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public Interface CompanyRepository extends JpaRepository<Company, Long> {
+public interface CompanyRepository extends JpaRepository<Company, Long> {
 
-    // Find company by name
-    Optional<Company> findByCompanyName(String companyName);
 }

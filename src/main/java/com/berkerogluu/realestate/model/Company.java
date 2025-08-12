@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "company") // Used a singular table name because app will be managed by a single company
+@Table(name = "company", uniqueConstraints = @UniqueConstraint(name = "single_company_constraint", columnNames = "singleton_guard"))
+// Used a singular table name because app will be managed by a single company
 public class Company {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.Identity)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "company_name", nullable = false, length = 255)
@@ -36,6 +37,9 @@ public class Company {
     // https://ticaret.gov.tr/kurumsal-haberler/elektronik-ilan-dogrulama-sistemi-eids-yetki-dogrulama-uygulamasi-hayata-gecirildi
     @Column(name = "trade_authorization_number", nullable = false, length = 255)
     private String tradeAuthorizationNumber;
+
+    @Column(name = "api_key", nullable = false, length = 32, unique = true)
+    private String apiKey;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
@@ -95,6 +99,10 @@ public class Company {
         return tradeAuthorizationNumber;
     }
 
+    public String getApiKey() {
+        return apiKey;
+    }
+
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -138,6 +146,10 @@ public class Company {
 
     public void setTradeAuthorizationNumber(String tradeAuthorizationNumber) {
         this.tradeAuthorizationNumber = tradeAuthorizationNumber;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public void setCreatedAt(Instant createdAt) {

@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.math.BigDecimal;
 
-import com.berkerogluu.realestate.enum.PropertyType;
-import com.berkerogluu.realestate.enum.PropertyStatus;
-import com.berkerogluu.realestate.enum.HeatingType;
+import com.berkerogluu.realestate.enums.*;
 
 @Entity
 @Table(name = "properties")
@@ -16,7 +14,7 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "property_type", nullable = false);
+    @Column(name = "property_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
 
@@ -73,7 +71,7 @@ public class Property {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    public Property {
+    public Property() {
 
     }
 
@@ -91,9 +89,9 @@ public class Property {
     // Custom methods
     // getPriceDisplay(): Shows price monthly or one-time based on what PropertyType it is
     public String getPriceDisplay() {
-        if(propertyType == PropertyType.RENTAL) {
+        if(propertyStatus == PropertyStatus.RENTAL) {
             return price + "TRY" + "/ay";
-        }else if(propertyType == PropertyType == ONSALE) {
+        }else if(propertyStatus == PropertyStatus.ONSALE) {
             return price + "TRY";
         }
         return price + "TRY";
@@ -109,7 +107,7 @@ public class Property {
     }
 
     public PropertyStatus getPropertyStatus() {
-        return PropertyStatus;
+        return propertyStatus;
     }
 
     public Long getCustomerId() {

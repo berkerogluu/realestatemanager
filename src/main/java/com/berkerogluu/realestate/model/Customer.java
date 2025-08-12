@@ -124,7 +124,7 @@ public class Customer {
     }
 
     public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone= = mobilePhone;
+        this.mobilePhone = mobilePhone;
     }
 
     public void setHomeNumber(String homeNumber) {
