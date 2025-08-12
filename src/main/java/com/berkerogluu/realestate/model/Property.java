@@ -90,11 +90,11 @@ public class Property {
     // getPriceDisplay(): Shows price monthly or one-time based on what PropertyType it is
     public String getPriceDisplay() {
         if(propertyStatus == PropertyStatus.RENTAL) {
-            return price + "TRY" + "/ay";
+            return price + " TRY" + "/ay";
         }else if(propertyStatus == PropertyStatus.ONSALE) {
-            return price + "TRY";
+            return price + " TRY";
         }
-        return price + "TRY";
+        return price + " TRY";
     }
 
     // Getters
