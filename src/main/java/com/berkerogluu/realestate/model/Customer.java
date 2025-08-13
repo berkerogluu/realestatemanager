@@ -29,6 +29,7 @@ public class Customer {
     @Column(name = "address", nullable = false, length = 500)
     private String address;
 
+    /* REMOVED
     // Customer can be a buyer, seller, landlord and tenant at the same time (design choice)
     @Column(name = "is_buyer")
     private Boolean isBuyer = false;
@@ -41,6 +42,7 @@ public class Customer {
 
     @Column(name = "is_tenant")
     private Boolean isTenant = false;
+    */
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
@@ -86,6 +88,7 @@ public class Customer {
         return address;
     }
 
+    /*
     public Boolean getIsBuyer() {
         return isBuyer;
     }
@@ -101,6 +104,7 @@ public class Customer {
     public Boolean getIsTenant() {
         return isTenant;
     }
+    */
 
     public Instant getCreatedAt() {
         return createdAt;
@@ -139,6 +143,7 @@ public class Customer {
         this.address = address;
     }
 
+    /*
     public void setIsBuyer(Boolean isBuyer) {
         this.isBuyer = isBuyer;
     }
@@ -154,6 +159,7 @@ public class Customer {
     public void setIsTenant(Boolean isTenant) {
        this.isTenant = isTenant;
     }
+    */
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;

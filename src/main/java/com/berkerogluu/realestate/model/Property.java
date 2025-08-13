@@ -22,8 +22,11 @@ public class Property {
     @Enumerated(EnumType.STRING)
     private PropertyStatus propertyStatus;
 
-    @Column(name = "customer_id", nullable = false)
-    private Long customerId;
+    @Column(name = "owner_id", nullable = false)
+    private Long ownerId;
+
+    @Column(name = "tenant_id", nullable = true)
+    private Long tenantId;
 
     @Column(name = "title", nullable = false, length = 255)
     private String title;
@@ -110,8 +113,12 @@ public class Property {
         return propertyStatus;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
     }
 
     public String getTitle() {
@@ -187,8 +194,12 @@ public class Property {
         this.propertyStatus = propertyStatus;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
     }
 
     public void setTitle(String title) {
