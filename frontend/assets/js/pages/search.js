@@ -43,6 +43,7 @@ async function handleKeywordSearch() {
         if (response.ok) {
             const searchResults = await response.json();
             renderPropertiesTable(searchResults);
+            keywordSearchInput.value = "";
         }
     } catch (error) {
         console.error(error);
