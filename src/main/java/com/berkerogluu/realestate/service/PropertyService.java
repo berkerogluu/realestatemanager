@@ -64,15 +64,15 @@ public class PropertyService {
         PropertyStatus status = null;
         HeatingType heating = null;
 
-        if(!propertyType.equals("NONE")) {
+        if(propertyType != null && !propertyType.equals("NONE")) {
             type = PropertyType.valueOf(propertyType);
         }
 
-        if(!propertyStatus.equals("NONE")){
+        if(propertyStatus != null && !propertyStatus.equals("NONE")){
             status = PropertyStatus.valueOf(propertyStatus);
         }
 
-        if(!heatingType.equals("NONE")) {
+        if(heatingType != null && !heatingType.equals("NONE")) {
             heating = HeatingType.valueOf(heatingType);
         }
 
