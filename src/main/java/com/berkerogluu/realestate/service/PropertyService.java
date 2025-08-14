@@ -33,12 +33,15 @@ public class PropertyService {
     // Update property
     public Property updateProperty(Long id, Property property) {
         // Fetch the current property
-        Optional<Property> currentProperty = propertyRepository.findById(id).get();
+        Optional<Property> currentProperty = propertyRepository.findById(id);
 
-        currentProperty.setPropertyStatus(property.getPropertyStatus());
-        currentProperty.setOwnerId(property.getOwnerId());
-        currentProperty.setTenantId(property.getTenantId());
+        Property currentPropertyObj = currentProperty.get();
 
+        currentPropertyObj.setPropertyStatus(property.getPropertyStatus());
+        currentPropertyObj.setOwnerId(property.getOwnerId());
+        currentPropertyObj.setTenantId(property.getTenantId());
+
+        return propertyRepository.save(currentPropertyObj);
     }
     // Delete property
     public void deleteProperty(Long id) {
