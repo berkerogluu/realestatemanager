@@ -14,3 +14,8 @@
 - Navigate to the `frontend/assets/js/config.js` and change the BASE_URL constant to where you will run and what port it will be running on. Example:
 	 `BASE_URL = http://localhost:8080`
 - Navigate to the index.html file, go to the settings page and register your company with the proper API key.
+
+### Video
+<video width="600" controls>
+  <source src="./showcase.mp4" type="video/mp4">
+</video>
