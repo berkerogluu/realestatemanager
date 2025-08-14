@@ -129,7 +129,7 @@ public class Property {
         return description;
     }
 
-    public String getAdressCity() {
+    public String getAddressCity() {
         return addressCity;
     }
 
@@ -137,7 +137,7 @@ public class Property {
         return addressCounty;
     }
 
-    public String getAdressDistrict() {
+    public String getAddressDistrict() {
         return addressDistrict;
     }
 

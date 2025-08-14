@@ -60,8 +60,8 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Address</th>
-                                            <th>Owner ID/Name</th>
-                                            <th>Tenant ID/Name</th>
+                                            <th>Owner ID</th>
+                                            <th>Tenant ID</th>
                                             <th>Type</th>
                                             <th>Status</th>
                                             <th>Price</th>
@@ -105,32 +105,36 @@
                                 <div class="row" style="height: 420px;">
                                     <div class="col-xl-7">
                                         <div class="card" style="border-style: none;">
-                                            <div class="card-body" style="width: 100%;border-style: none;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Title"></div>
-                                            <div class="card-body" style="width: 100%;border-style: none;"><textarea class="border rounded" style="width: 100%;" placeholder="Description"></textarea></div>
-                                            <div class="card-body" style="width: 100%;border-style: none;"><input class="border rounded" type="text" style="width: 100%;" placeholder="City"></div>
-                                            <div class="card-body" style="width: 100%;border-style: none;"><input class="border rounded" type="text" style="width: 100%;" placeholder="County"></div>
-                                            <div class="card-body" style="width: 100%;border-style: none;"><input class="border rounded" type="text" style="width: 100%;" placeholder="District"></div>
-                                            <div class="card-body" style="width: 100%;border-style: none;"><textarea class="border rounded" style="width: 100%;" placeholder="Full Address"></textarea></div>
+                                            <div class="card-body" style="width: 100%;border-style: none;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Title" id="title"></div>
+                                            <div class="card-body" style="width: 100%;border-style: none;"><textarea class="border rounded" style="width: 100%;" placeholder="Description" id="description"></textarea></div>
+                                            <div class="card-body" style="width: 100%;border-style: none;"><input class="border rounded" type="text" style="width: 100%;" placeholder="City" id="city"></div>
+                                            <div class="card-body" style="width: 100%;border-style: none;"><input class="border rounded" type="text" style="width: 100%;" placeholder="County" id ="county"></div>
+                                            <div class="card-body" style="width: 100%;border-style: none;"><input class="border rounded" type="text" style="width: 100%;" placeholder="District" id="district"></div>
+                                            <div class="card-body" style="width: 100%;border-style: none;"><textarea class="border rounded" style="width: 100%;" placeholder="Full Address" id="full-address"></textarea></div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="card" style="border-style: none;">
-                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Floor"></div>
+                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Floor" id="floor"></div>
                                         </div>
                                         <div class="card" style="border-style: none;">
-                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Building Floors"></div>
+                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Building Floors" id="building-floors"></div>
                                         </div>
                                         <div class="card" style="border-style: none;">
-                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Net m2"></div>
+                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Net m2" id="net-m2"></div>
                                         </div>
                                         <div class="card" style="border-style: none;">
-                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Number of Rooms"></div>
+                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Number of Rooms" id="number-of-rooms"></div>
                                         </div>
                                         <div class="card" style="border-style: none;">
-                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Number of Halls"></div>
+                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Number of Halls" id="number-of-halls"></div>
                                         </div>
                                         <div class="card" style="border-style: none;">
-                                            <div class="card-body" style="width: 100%;"><select class="border rounded" style="width: 100%;">
+                                            <div class="card-body" style="width: 100%;"><input class="border rounded" type="text" style="width: 100%;" placeholder="Price" id="price"></div>
+                                        </div>
+                                        <div class="card" style="border-style: none;">
+                                            <div class="card-body" style="width: 100%;">
+                                                <select class="border rounded" style="width: 100%;" id="heating-type">
                                                     <optgroup label="Heating Type">
                                                         <option value="NATURAL_GAS">NATURAL GAS</option>
                                                         <option value="COAL">COAL</option>
