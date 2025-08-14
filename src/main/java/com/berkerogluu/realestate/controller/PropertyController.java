@@ -69,6 +69,9 @@ public class PropertyController {
         if(!companyService.checkApiKey(apiKey)) {
              return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
+        propertyService.deleteProperty(id);
+        return ResponseEntity.ok().build();
     }
 
 }
