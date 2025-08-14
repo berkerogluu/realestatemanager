@@ -6,7 +6,7 @@ const propertyTypeSelect = document.querySelector("select:nth-of-type(1)");
 const propertyStatusSelect = document.querySelector("select:nth-of-type(2)");
 const heatingTypeSelect = document.querySelector("select:nth-of-type(3)");
 const searchButton = document.querySelector("#searchBtn");
-const filterButton = document.querySelector("#filterBtn:last-of-type");
+const filterButton = document.querySelector("#filterBtn");
 const propertyDetailsModal = document.getElementById("modal-1");
 
 document.addEventListener("DOMContentLoaded", function() {
