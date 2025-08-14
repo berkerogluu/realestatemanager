@@ -66,4 +66,15 @@ public class CustomerController {
         return ResponseEntity.ok(newCustomer);
     }
 
+    // Delete a customer - apiKey is required !
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable Long id, @RequestParam String apiKey) {
+        if(!companyService.checkApiKey(apiKey)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        customerService.deleteCustomer(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
