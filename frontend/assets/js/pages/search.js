@@ -97,7 +97,7 @@ function renderPropertiesTable(propertiesToShow) {
             <td>${property.id}</td>
             <td>${property.title}</td>
             <td>${property.addressCity}</td>
-            <td>${property.priceDisplay} TRY</td>
+            <td>${property.priceDisplay}</td>
             <td>${property.propertyType}</td>
             <td>${property.propertyStatus}</td>
             <td>
@@ -154,6 +154,6 @@ function displayPropertyDetails(property) {
         <tr><td>Heating Type</td><td>${property.heatingType}</td></tr>
         <tr><td>Property Type</td><td>${property.propertyType}</td></tr>
         <tr><td>Property Status</td><td>${property.propertyStatus}</td></tr>
-        <tr><td>Price</td><td>${property.priceDisplay} TRY</td></tr>
+        <tr><td>Price</td><td>${property.priceDisplay}</td></tr>
     `;
 }
