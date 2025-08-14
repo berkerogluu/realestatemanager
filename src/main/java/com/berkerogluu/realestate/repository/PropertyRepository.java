@@ -16,16 +16,18 @@ import java.util.List;
 public interface PropertyRepository extends JpaRepository<Property, Long> {
 
     // Search by keyword (title, description, city)
-    @Query(value = "SELECT * FROM properties WHERE " +
-       "UPPER(title) LIKE UPPER(CONCAT('%', :keyword, '%')) OR " +
-       "UPPER(description) LIKE UPPER(CONCAT('%', :keyword, '%')) OR " +
-       "UPPER(address_city) LIKE UPPER(CONCAT('%', :keyword, '%'))", nativeQuery = true)
+    // In JPQL, we can select from entity name instead of table name properties
+    @Query("SELECT p FROM Property p WHERE " +
+       "UPPER(p.title) LIKE UPPER(CONCAT('%', :keyword, '%')) OR " +
+       "UPPER(p.description) LIKE UPPER(CONCAT('%', :keyword, '%')) OR " +
+       "UPPER(p.addressCity) LIKE UPPER(CONCAT('%', :keyword, '%'))")
     List<Property> findByKeyword(@Param("keyword") String keyword);
 
     // Filter using property type, property status and heating type
-    @Query(value = "SELECT * FROM properties WHERE " +
-       "(:propertyType IS NULL OR property_type = :propertyType) AND " +
-       "(:propertyStatus IS NULL OR property_status = :propertyStatus) AND " +
-       "(:heatingType IS NULL OR heating_type = :heatingType)", nativeQuery = true)
+    // In JPQL, we can select from entity name instead of table name properties
+    @Query("SELECT p FROM Property p WHERE " +
+       "(:propertyType IS NULL OR p.propertyType = :propertyType) AND " +
+       "(:propertyStatus IS NULL OR p.propertyStatus = :propertyStatus) AND " +
+       "(:heatingType IS NULL OR p.heatingType = :heatingType)")
     List<Property> findByFilters(@Param("propertyType") PropertyType propertyType, @Param("propertyStatus") PropertyStatus propertyStatus, @Param("heatingType") HeatingType heatingType);
 }
