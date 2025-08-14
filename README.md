@@ -16,6 +16,4 @@
 - Navigate to the index.html file, go to the settings page and register your company with the proper API key.
 
 ### Video
-<video width="600" controls>
-  <source src="./showcase.mp4" type="video/mp4">
-</video>
+![Demo](./showcase.mp4)
