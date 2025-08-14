@@ -36,6 +36,13 @@ public class PropertyController {
         return property.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    // Get properties searching by keyword
+    @GetMapping("/search")
+    public ResponseEntity<List<Property>> searchByKeyword(@RequestParam String keyword) {
+        List<Property> properties = propertyService.searchByKeyword(keyword);
+        return ResponseEntity.ok(properties);
+    }
+
     // Create a property - apiKey is required !
     @PostMapping
     public ResponseEntity<Property> createProperty(@RequestBody Property property, @RequestParam String apiKey) {

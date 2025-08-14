@@ -47,4 +47,13 @@ public class PropertyService {
     public void deleteProperty(Long id) {
         propertyRepository.deleteById(id);
     }
+
+    // Search by keyword
+    public List<Property> searchByKeyword(String keyword) {
+        if (keyword == null) {
+            return getAllProperties();
+        }
+
+        return propertyRepository.findByKeyword(keyword);
+    }
 }

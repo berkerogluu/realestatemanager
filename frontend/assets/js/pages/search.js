@@ -7,40 +7,88 @@ const propertyStatusSelect = document.querySelector("select:nth-of-type(2)");
 const heatingTypeSelect = document.querySelector("select:nth-of-type(3)");
 const searchButton = document.querySelector("button:first-of-type");
 const filterButton = document.querySelector("button:last-of-type");
-
 const propertyDetailsModal = document.getElementById("modal-1");
 
 document.addEventListener("DOMContentLoaded", function() {
-    loadProperties();
+    loadAllProperties();
     setupEventListeners();
 });
 
 function setupEventListeners() {
     searchButton.addEventListener('click', handleKeywordSearch);
     filterButton.addEventListener('click', handleFilterSearch);
-
-    // Enter key for keyword search
-    keywordSearchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            handleKeywordSearch();
-        }
-    });
 }
 
-async function loadProperties() {
+async function loadAllProperties() {
     try {
         const response = await fetch(`${BASE_URL}/api/properties`);
         if (response.ok) {
             properties = await response.json();
-            renderPropertiesTable();
+            renderPropertiesTable(properties);
         }
     } catch (error) {
         console.error(error);
     }
 }
 
-function renderPropertiesTable(propertiesToShow = properties) {
+async function handleKeywordSearch() {
+    const keyword = keywordSearchInput.value.trim().toLowerCase();
+    if (!keyword) {
+        loadAllProperties();
+        return;
+    }
+
+    try {
+        const response = await fetch(`${BASE_URL}/api/properties/search?keyword=${encodeURIComponent(keyword)}`);
+        if (response.ok) {
+            const searchResults = await response.json();
+            renderPropertiesTable(searchResults);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function handleFilterSearch() {
+    const selectedPropertyType = propertyTypeSelect.value;
+    const selectedPropertyStatus = propertyStatusSelect.value;
+    const selectedHeatingType = heatingTypeSelect.value;
+
+    const params = new URLSearchParams();
+
+    if (selectedPropertyType !== 'NONE') {
+        params.append('propertyType', selectedPropertyType);
+    }
+    if (selectedPropertyStatus !== 'NONE') {
+        params.append('propertyStatus', selectedPropertyStatus);
+    }
+    if (selectedHeatingType !== 'NONE') {
+        params.append('heatingType', selectedHeatingType);
+    }
+
+    try {
+        const queryString = params.toString();
+        const url = `${BASE_URL}/api/properties/filter${queryString ? '?' + queryString : ''}`;
+
+        const response = await fetch(url);
+        if (response.ok) {
+            const filterResults = await response.json();
+            renderPropertiesTable(filterResults);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function renderPropertiesTable(propertiesToShow) {
     propertyTableBody.innerHTML = '';
+
+    if (!propertiesToShow || propertiesToShow.length === 0) {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td colspan="7" class="text-center">No properties found</td>`;
+        propertyTableBody.appendChild(row);
+        return;
+    }
 
     propertiesToShow.forEach(property => {
         const row = document.createElement("tr");
@@ -48,7 +96,7 @@ function renderPropertiesTable(propertiesToShow = properties) {
             <td>${property.id}</td>
             <td>${property.title}</td>
             <td>${property.addressCity}</td>
-            <td>${property.priceDisplay}</td>
+            <td>${property.priceDisplay} TRY</td>
             <td>${property.propertyType}</td>
             <td>${property.propertyStatus}</td>
             <td>
@@ -64,56 +112,32 @@ function renderPropertiesTable(propertiesToShow = properties) {
     });
 }
 
-function handleKeywordSearch() {
-    const keyword = keywordSearchInput.value.toLowerCase().trim();
-
-    if (!keyword) {
-        renderPropertiesTable(properties);
-        return;
-    }
-
-    const filteredProperties = properties.filter(property =>
-        property.title.toLowerCase().includes(keyword) ||
-        property.description.toLowerCase().includes(keyword) ||
-        property.addressCity.toLowerCase().includes(keyword) ||
-        property.addressDistrict.toLowerCase().includes(keyword) ||
-        property.id.toString().includes(keyword)
-    );
-
-    renderPropertiesTable(filteredProperties);
-}
-
-function handleFilterSearch() {
-    let filteredProperties = [...properties];
-
-    const selectedPropertyType = propertyTypeSelect.value;
-    if (selectedPropertyType !== 'NONE') {
-        filteredProperties = filteredProperties.filter(property =>
-            property.propertyType === selectedPropertyType
-        );
-    }
-
-    const selectedPropertyStatus = propertyStatusSelect.value;
-    if (selectedPropertyStatus !== 'NONE') {
-        filteredProperties = filteredProperties.filter(property =>
-            property.propertyStatus === selectedPropertyStatus
-        );
-    }
-
-    const selectedHeatingType = heatingTypeSelect.value;
-    if (selectedHeatingType !== 'NONE') {
-        filteredProperties = filteredProperties.filter(property =>
-            property.heatingType === selectedHeatingType
-        );
-    }
-
-    renderPropertiesTable(filteredProperties);
-}
-
 function showPropertyDetails(propertyId) {
-    const property = properties.find(p => p.id === propertyId);
-    if (!property) return;
+    let property = null;
+    const currentRows = propertyTableBody.querySelectorAll('tr');
+    for (let row of currentRows) {
+        const idCell = row.querySelector('td:first-child');
+        if (idCell && parseInt(idCell.textContent) === propertyId) {
+            break;
+        }
+    }
 
+    fetchPropertyDetails(propertyId);
+}
+
+async function fetchPropertyDetails(propertyId) {
+    try {
+        const response = await fetch(`${BASE_URL}/api/properties/${propertyId}`);
+        if (response.ok) {
+            const property = await response.json();
+            displayPropertyDetails(property);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function displayPropertyDetails(property) {
     const detailsTable = document.querySelector("#modal-1 .table-striped-columns tbody");
     detailsTable.innerHTML = `
         <tr><td>Title</td><td>${property.title}</td></tr>
@@ -122,13 +146,13 @@ function showPropertyDetails(propertyId) {
         <tr><td>County</td><td>${property.addressCounty}</td></tr>
         <tr><td>District</td><td>${property.addressDistrict}</td></tr>
         <tr><td>Full Address</td><td>${property.addressFull}</td></tr>
-        <tr><td>Floor</td><td>${property.floor}</td></tr>
+        <tr><td>Floor</td><td>${property.floor} / ${property.buildingFloors}</td></tr>
         <tr><td>Net m2</td><td>${property.areaNetSquaremeter}</td></tr>
         <tr><td>Number of Rooms</td><td>${property.numberOfRooms}</td></tr>
         <tr><td>Number of Halls</td><td>${property.numberOfHalls}</td></tr>
         <tr><td>Heating Type</td><td>${property.heatingType}</td></tr>
         <tr><td>Property Type</td><td>${property.propertyType}</td></tr>
         <tr><td>Property Status</td><td>${property.propertyStatus}</td></tr>
-        <tr><td>Price</td><td>${property.priceDisplay}</td></tr>
+        <tr><td>Price</td><td>${property.priceDisplay} TRY</td></tr>
     `;
 }
