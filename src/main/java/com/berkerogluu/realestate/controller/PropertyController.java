@@ -47,4 +47,28 @@ public class PropertyController {
         return ResponseEntity.ok(newProperty);
     }
 
+    // Update property - apiKey is required !
+    @PutMapping("/{id}")
+    public ResponseEntity<Property> updateProperty(@PathVariable Long id, @RequestBody Property property, @RequestParam String apiKey) {
+        if(!companyService.checkApiKey(apiKey)) {
+             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        Optional<Property> currentProperty = propertyService.getPropertyById(id);
+        if (currentProperty.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Property updatedProperty = propertyService.updateProperty(id, property);
+        return ResponseEntity.ok(updatedProperty);
+    }
+
+    // Delete property - apiKey is Required !
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProperty(@PathVariable Long id, @RequestParam String apiKey) {
+        if(!companyService.checkApiKey(apiKey)) {
+             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
 }

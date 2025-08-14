@@ -29,4 +29,19 @@ public class PropertyService {
     public Property createProperty(Property property) {
         return propertyRepository.save(property);
     }
+
+    // Update property
+    public Property updateProperty(Long id, Property property) {
+        // Fetch the current property
+        Optional<Property> currentProperty = propertyRepository.findById(id).get();
+
+        currentProperty.setPropertyStatus(property.getPropertyStatus());
+        currentProperty.setOwnerId(property.getOwnerId());
+        currentProperty.setTenantId(property.getTenantId());
+
+    }
+    // Delete property
+    public void deleteProperty(Long id) {
+        propertyRepository.deleteById(id);
+    }
 }
