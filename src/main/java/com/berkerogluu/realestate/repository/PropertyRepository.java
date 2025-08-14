@@ -17,8 +17,8 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
 
     // Search by keyword (title, description, city)
     @Query(value = "SELECT * FROM properties WHERE " +
-       "title LIKE CONCAT('%', :keyword, '%') OR " +
-       "description LIKE CONCAT('%', :keyword, '%') OR " +
-       "address_city LIKE CONCAT('%', :keyword, '%')", nativeQuery = true)
+       "UPPER(title) LIKE UPPER(CONCAT('%', :keyword, '%')) OR " +
+       "UPPER(description) LIKE UPPER(CONCAT('%', :keyword, '%')) OR " +
+       "UPPER(address_city) LIKE UPPER(CONCAT('%', :keyword, '%'))", nativeQuery = true)
     List<Property> findByKeyword(@Param("keyword") String keyword);
 }

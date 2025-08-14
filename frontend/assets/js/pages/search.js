@@ -32,7 +32,7 @@ async function loadAllProperties() {
 }
 
 async function handleKeywordSearch() {
-    const keyword = keywordSearchInput.value.trim().toLowerCase();
+    const keyword = keywordSearchInput.value.trim();
     if (!keyword) {
         loadAllProperties();
         return;
