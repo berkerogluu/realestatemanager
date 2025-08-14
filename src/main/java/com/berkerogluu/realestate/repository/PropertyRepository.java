@@ -21,4 +21,11 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
        "UPPER(description) LIKE UPPER(CONCAT('%', :keyword, '%')) OR " +
        "UPPER(address_city) LIKE UPPER(CONCAT('%', :keyword, '%'))", nativeQuery = true)
     List<Property> findByKeyword(@Param("keyword") String keyword);
+
+    // Filter using property type, property status and heating type
+    @Query(value = "SELECT * FROM properties WHERE " +
+       "(:propertyType IS NULL OR property_type = :propertyType) AND " +
+       "(:propertyStatus IS NULL OR property_status = :propertyStatus) AND " +
+       "(:heatingType IS NULL OR heating_type = :heatingType)", nativeQuery = true)
+    List<Property> findByFilters(@Param("propertyType") PropertyType propertyType, @Param("propertyStatus") PropertyStatus propertyStatus, @Param("heatingType") HeatingType heatingType);
 }

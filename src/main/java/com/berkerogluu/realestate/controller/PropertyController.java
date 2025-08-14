@@ -43,6 +43,13 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
 
+    // Filter properties by enum types
+    @GetMapping("/filter")
+    public ResponseEntity<List<Property>> filterProperties(@RequestParam(required = false) String propertyType, @RequestParam(required = false) String propertyStatus, @RequestParam(required = false) String heatingType) {
+        List<Property> properties = propertyService.filterProperties(propertyType, propertyStatus, heatingType);
+        return ResponseEntity.ok(properties);
+    }
+
     // Create a property - apiKey is required !
     @PostMapping
     public ResponseEntity<Property> createProperty(@RequestBody Property property, @RequestParam String apiKey) {

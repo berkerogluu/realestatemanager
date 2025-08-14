@@ -5,6 +5,7 @@ import com.berkerogluu.realestate.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.berkerogluu.realestate.enums.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,5 +56,26 @@ public class PropertyService {
         }
 
         return propertyRepository.findByKeyword(keyword);
+    }
+
+    // Filter using property type, property status and heating type
+    public List<Property> filterProperties(String propertyType, String propertyStatus, String heatingType) {
+        PropertyType type = null;
+        PropertyStatus status = null;
+        HeatingType heating = null;
+
+        if(!propertyType.equals("NONE")) {
+            type = PropertyType.valueOf(propertyType);
+        }
+
+        if(!propertyStatus.equals("NONE")){
+            status = PropertyStatus.valueOf(propertyStatus);
+        }
+
+        if(!heatingType.equals("NONE")) {
+            heating = HeatingType.valueOf(heatingType);
+        }
+
+        return propertyRepository.findByFilters(type, status, heating);
     }
 }
